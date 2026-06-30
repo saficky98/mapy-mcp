@@ -18,11 +18,17 @@ import {
 const app = new Hono<{ Bindings: Env & { OAUTH_PROVIDER: OAuthHelpers } }>();
 
 app.get("/debug-env", (c) => {
+	const describe = (v: unknown) => ({
+		type: typeof v,
+		hasGetMethod: typeof v === "object" && v !== null && typeof (v as any).get === "function",
+		isString: typeof v === "string",
+		length: typeof v === "string" ? v.length : null,
+	});
 	return c.json({
-		hasMapyKey: typeof c.env.MAPY_API_KEY === "string" && c.env.MAPY_API_KEY.length > 0,
-		hasGithubId: typeof c.env.GITHUB_CLIENT_ID === "string" && c.env.GITHUB_CLIENT_ID.length > 0,
-		hasGithubSecret: typeof c.env.GITHUB_CLIENT_SECRET === "string" && c.env.GITHUB_CLIENT_SECRET.length > 0,
-		hasCookieKey: typeof c.env.COOKIE_ENCRYPTION_KEY === "string" && c.env.COOKIE_ENCRYPTION_KEY.length > 0,
+		mapyKey: describe(c.env.MAPY_API_KEY),
+		githubId: describe(c.env.GITHUB_CLIENT_ID),
+		githubSecret: describe(c.env.GITHUB_CLIENT_SECRET),
+		cookieKey: describe(c.env.COOKIE_ENCRYPTION_KEY),
 	});
 });
 
