@@ -1,0 +1,4 @@
+MAPY_API_KEY=your-mapy-api-key
+GITHUB_CLIENT_ID=your-github-oauth-client-id
+GITHUB_CLIENT_SECRET=your-github-oauth-client-secret
+COOKIE_ENCRYPTION_KEY=run-openssl-rand-hex-32
