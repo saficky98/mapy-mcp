@@ -17,6 +17,15 @@ import {
 
 const app = new Hono<{ Bindings: Env & { OAUTH_PROVIDER: OAuthHelpers } }>();
 
+app.get("/debug-env", (c) => {
+	return c.json({
+		hasMapyKey: typeof c.env.MAPY_API_KEY === "string" && c.env.MAPY_API_KEY.length > 0,
+		hasGithubId: typeof c.env.GITHUB_CLIENT_ID === "string" && c.env.GITHUB_CLIENT_ID.length > 0,
+		hasGithubSecret: typeof c.env.GITHUB_CLIENT_SECRET === "string" && c.env.GITHUB_CLIENT_SECRET.length > 0,
+		hasCookieKey: typeof c.env.COOKIE_ENCRYPTION_KEY === "string" && c.env.COOKIE_ENCRYPTION_KEY.length > 0,
+	});
+});
+
 app.get("/authorize", async (c) => {
 	const oauthReqInfo = await c.env.OAUTH_PROVIDER.parseAuthRequest(c.req.raw);
 	const { clientId } = oauthReqInfo;
