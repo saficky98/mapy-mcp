@@ -209,7 +209,6 @@ export class MyMCP extends McpAgent<MapyEnv, Record<string, never>, Props> {
 						ascent_m: Math.round(ascent),
 						descent_m: Math.round(descent),
 						mapy_link: mapyLink.toString(),
-						route_geometry: sample(points, 100).map(([lon, lat]) => ({ lat, lon })),
 						elevation_profile: sample(profile, 64),
 					};
 
