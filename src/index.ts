@@ -148,7 +148,22 @@ export class MyMCP extends McpAgent<MapyEnv, Record<string, never>, Props> {
 						lang: "cs",
 					});
 
-					const points = route.geometry.coordinates;
+					const rawGeometry: any = (route as any).geometry;
+					const points: [number, number][] | undefined =
+					  rawGeometry?.coordinates ??
+					  rawGeometry?.geometry?.coordinates ??
+					  (Array.isArray(rawGeometry) ? rawGeometry : undefined);
+
+					if (!points) {
+					  return {
+					    isError: true,
+					    content: [{
+					      type: "text",
+					      text: "Nepodařilo se najít geometrii trasy. Syrová odpověď API: " + JSON.stringify(route).slice(0, 1500),
+					    }],
+					  };
+					}
+
 					const sampledPoints = sample(points, 256);
 
 					const elevation = await mapyGet<{ items: Array<{ elevation: number }> }>(
