@@ -1,5 +1,6 @@
 import asyncio
 import base64
+import os
 from mcp.server import Server
 from mcp.types import TextContent, Tool
 from markdown import markdown
@@ -44,4 +45,5 @@ async def generate_pdf(content: str, format: str = "markdown") -> dict:
 
 if __name__ == "__main__":
     # Run in HTTP mode for cloud deployment (Railway, Fly.io, etc.)
-    asyncio.run(app.run_http(host="0.0.0.0", port=8080))
+    port = int(os.environ.get("PORT", 8080))
+    asyncio.run(app.run_http(host="0.0.0.0", port=port))
