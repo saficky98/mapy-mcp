@@ -18,7 +18,7 @@ async def generate_pdf(content: str, format: str = "markdown") -> dict:
         format: "markdown" nebo "html".
     
     Returns:
-        Dict s base64 PDF, názvem souboru a velikostí.
+        Dict s base64 PDF, nazvem souboru a velikosti.
     """
     try:
         if format == "markdown":
@@ -43,4 +43,5 @@ async def generate_pdf(content: str, format: str = "markdown") -> dict:
 
 
 if __name__ == "__main__":
-    asyncio.run(app.run_stdio())
+    # Run in HTTP mode for cloud deployment (Railway, Fly.io, etc.)
+    asyncio.run(app.run_http(host="0.0.0.0", port=8080))
