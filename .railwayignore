@@ -1,0 +1,20 @@
+# Ignorujeme zbytecne soubory pro Railway deploy
+PDF_GENERATOR_README.md
+.railwayignore
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+IDE/
+.vscode/
+.git/
+.gitignore
+*.md
+!Dockerfile
+!requirements.txt
+!pdf_mcp_server.py
